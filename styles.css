@@ -1,0 +1,30 @@
+body{
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+header{
+
+}
+
+#recipe-card-area{
+
+}
+
+#recipe-form-area{
+
+}
+
+.recipe-form-main-div{
+}
+
+.recipe-form-add-ingredient-div{
+    display: flex;
+    flex-direction: row;
+}
+
+.hide-area{
+    display: none;
+    transition: display 100;
+}
