@@ -1,87 +1,168 @@
-let apiKey = "3238d82b22554c6eaad32689862567d2";
-let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
+// let apiKey = "3238d82b22554c6eaad32689862567d2";
+// let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
 
-async function fetchIngredient(food) { 
-    //Saving the API response in a constant 
-    const response =  await fetch(`https://api.spoonacular.com/food/ingredients/search?query=${food}&sort=calories&sortDirection=desc/information&apiKey=${apiKey}`)
+// async function fetchIngredient(food) { 
+//     //Saving the API response in a constant 
+//     const response =  await fetch(`https://api.spoonacular.com/food/ingredients/search?query=${food}&sort=calories&sortDirection=desc/information&apiKey=${apiKey}`)
     
-    if (response.status === 404) { 
-        alert(`${input} is not a valid ingredient... Please try again.`); 
-        return true; 
-    } 
-    const data = await response.json(); 
+//     if (response.status === 404) { 
+//         alert(`${input} is not a valid ingredient... Please try again.`); 
+//         return true; 
+//     } 
+//     const data = await response.json(); 
     
-    for(let ingredient of data.results){
-        if(ingredient.name === food) return ingredient.id
-    }
-} 
+//     for(let ingredient of data.results){
+//         if(ingredient.name === food) return ingredient.id
+//     }
+// } 
 
-async function fetchIngredientData(id, amount){
-    const response =  await fetch(`https://api.spoonacular.com/food/ingredients/${id}/information?apiKey=${apiKey}&amount=${amount}`);
-    const data = await response.json(); 
-    return data;
-}
-
-// fetchIngredient("banana").then((ingredientId) => fetchIngredientData(ingredientId, 150));
-
+// async function fetchIngredientData(id, amount){
+//     const response =  await fetch(`https://api.spoonacular.com/food/ingredients/${id}/information?apiKey=${apiKey}&amount=${amount}`);
+//     const data = await response.json(); 
+//     return data;
+// }
 
 const formArea = document.getElementById("recipe-form-area");
 const cardArea = document.getElementById("recipe-card-area");
+const addedIngredientArea = document.getElementById("added-ingredients");
 
-// //To do:
-// //Create recipe form function
-// function createRecipeForm(){
-//     const mainDiv = document.createElement("div");
-//     mainDiv.classList.add("recipe-form-main-div");
+//Create recipe form function - gets the elements from the html form and adds callbacks to the buttons, populates values etc.
+function createRecipeForm(){
 
-//     const recipeName = document.createElement("INPUT");
-//     recipeName.setAttribute("type", "text");
+    let totalCaloriesValue = 0, totalCarbsValue = 0, totalFatValue = 0, totalProteinValue = 0;
+    const ingredientList = [];
 
-//     //this is our add ingredient div, it will contain a text input and an add button with a callback that calls createIngredientDiv(data)
-//     const addIngredientDiv = document.createElement("div");
-//     addIngredientDiv.classList.add("recipe-form-add-ingredient-div");
-
-//     const addIngredientTextInput = document.createElement("INPUT");
-//     addIngredientTextInput.setAttribute("type", "text");
+    //nutritional information
+    const totalCalories = document.getElementById("total-p-calories");
+    const totalCarbs = document.getElementById("total-p-carbs");
+    const totalFat = document.getElementById("total-p-fat");
+    const totalProtein = document.getElementById("total-p-protein");
     
-//     const addIngredientWeight = document.createElement("INPUT");
-//     addIngredientWeight.setAttribute("type", "number");
 
-//     const addIngredientButton = document.createElement("button");
-//     addIngredientButton.addEventListener("click", () => createIngredientDiv(addIngredientTextInput.value, addIngredientWeight.value))
+    const recipeName = document.getElementById("recipe-form-title");
+    const addIngredientTextInput = document.getElementById("recipe-ingredient-text-box");
+    const addIngredientWeight = document.getElementById("amount");
 
-//     addIngredientDiv.append(addIngredientTextInput, addIngredientWeight, addIngredientButton);
+    const addIngredientButton = document.getElementById("recipe-ingredient-add-button");
+    addIngredientButton.innerText = "Add Ingredient";
+    //callback to add the ingredient to the div and update our values
+    addIngredientButton.addEventListener("click", () => {
+        let nutritionalValues = createIngredientDiv(addIngredientTextInput.value, addIngredientWeight.value);
+        let caloriesToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
+        let carbsToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
+        let fatToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
+        let proteinToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
 
-//     //this div will contain all the created ingredient elements
-//     const ingredientDiv = document.createElement("div");
-//     ingredientDiv.classList.add("recipe-form-ingredient-div");
+        totalCaloriesValue += caloriesToAdd;
+        totalCarbsValue += carbsToAdd;
+        totalFatValue += fatToAdd;
+        totalProteinValue += proteinToAdd;
 
-//     mainDiv.append(recipeName, addIngredientDiv, ingredientDiv);
-//     formArea.append(mainDiv);
-// }
+        totalCalories.innerText = `${totalCaloriesValue}g`;
+        totalCarbs.innerText = `${totalCarbsValue}g`;
+        totalFat.innerText = `${totalFatValue}g`;
+        totalProtein.innerText = `${totalProteinValue}g`;
+
+        ingredientList.append( {
+            name: addIngredientTextInput.value,
+            calories: totalCaloriesValue,
+            carbs: totalCarbsValue,
+            fat: totalFatValue,
+            protein: totalProteinValue
+        });
+    })
+    
+    const createRecipeButton  = document.getElementById("recipe-create-button");
+    createRecipeButton.addEventListener("click", () => {
+        if(ingredientList.length > 0 && recipeName.value !== ""){
+            //we have ingredients and title
+            createEvent(recipeName.value, totalCaloriesValue, totalCarbsValue, totalFatValue, totalProteinValue, ingredientList);
+        } else{
+            alert("Recipe needs a title and at least one ingredient!");
+        }
+    });  
+}
 
 function createIngredientDiv(ingredient, weight){
-    fetchIngredient(ingredient).then((ingredientId) => fetchIngredientData(ingredientId, weight)).then((data) => {
-        console.log(data)
-        //we have access to all the data here!
-        //we can create a div with ingredient name, 
-        //we can create a pop up that shows on hover the nutritional information
-        const ingredientDiv = document.createElement("div");
-        ingredientDiv.classList.add("ingredient-element");
+    integrationFunction(ingredient).then((data) => {
+        
+        const ingredientDiv = document.createElement("section");
+        ingredientDiv.classList.add("ingredient");
 
-        const ingredientName = document.createElement("h3");
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Delete Recipe";
+
+        const ingredientName = document.createElement("p");
         ingredientName.innerText = `${ingredient} - ${weight}g`
 
-        const ingredientImage = document.createElement("img");
-        ingredientImage.setAttribute("src", `${imageURL}${data.image}`);
+        const calories = document.createElement("div");
+        calories.innerText = `${data[1].calories}`;
+        const fat = document.createElement("div");
+        fat.innerText = `${data[1].fat}`;
+        const carbs = document.createElement("div");
+        carbs.innerText = `${data[1].carbs}`;
+        const protein = document.createElement("div");
+        proetin.innerText = `${data[1].protein}`;
 
-        ingredientDiv.append(ingredientName, ingredientImage);
+        ingredientDiv.append(deleteButton, ingredientName, calories, carbs, fat, protein);
         
-        document.querySelector(".recipe-form-ingredient-div").append(ingredientDiv);
+        document.getElementById("added-ingredients").append(ingredientDiv);
+
+        return data[1];
     });
 
 }
 
+
+//Stef's API functions
+async function fetchIngredientList(str) {
+    const url = `https://api.spoonacular.com/food/ingredients/search?query=${str}&number=200&sort=calories&sortDirection=desc/information&apiKey=565107c2332d437082260ddcf117d8f7`;
+  
+    const response = await fetch(url);
+    const data = await response.json();
+  
+    let [myIngredient] = data.results.filter(
+      (ingredient) => ingredient.name === str
+    );
+    // console.log(myIngredient);
+  
+    return myIngredient;
+} // all async functions return a promise
+  
+async function nutritionalValues(ingredient) {
+    const url = `https://api.spoonacular.com/recipes/${ingredient.id}/nutritionWidget.json?apiKey=565107c2332d437082260ddcf117d8f7&amount=100&unit=g`;
+  
+    let response = await fetch(url);
+    let data = await response.json();
+  
+    // console.log(data);
+  
+    return data;
+}
+  
+async function integrationFunction(ingredient) {
+    let ingredientObj = await fetchIngredientList(ingredient);
+    let nutrition = await nutritionalValues(ingredientObj);
+  
+    console.log(nutrition);
+  
+    let foodInfoArr = [ingredientObj.name, nutrition];
+  
+    console.log(foodInfoArr);
+    return foodInfoArr;
+  }
+
+
+
+
 //Create recipe card function
 
 createRecipeForm()
+
+const stefExampleOutput =   ["apple", {
+    calories: "1k",
+    carbs: "16g",
+    fat:"107g",
+    protein:"20g"
+}]
+
