@@ -67,7 +67,7 @@ p {
 
 #added-ingredients, .ingredient, #totals{
     display: grid;
-    grid-template-columns: 10% 30% 15% 15% 15% 15%;
+    grid-template-columns: auto 35% 15% 15% 15% 15%;
     text-align: center;
 }
 
@@ -76,8 +76,19 @@ p {
 }
 
 .ingredient {
+    margin: 5px;
     grid-column-start: 1;
     grid-column-end: 7;
+}
+
+.ingredient button {
+    background-color: red;
+    color: white;
+    transition: opacity 0.2s;
+}
+
+.ingredient button:hover {
+    opacity: 0.5;
 }
 
 #total-start {
@@ -85,6 +96,10 @@ p {
     text-align: end;
 }
 
-#recipe-card-area{
+#recipe-create-button {
+
+}
+
+#recipe-card-area {
     
 }
