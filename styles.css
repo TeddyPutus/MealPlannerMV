@@ -71,6 +71,10 @@ p {
     text-align: center;
 }
 
+.descriptor {
+    text-decoration: underline;
+}
+
 #start {
     grid-column-start: 3;
 }
@@ -84,11 +88,16 @@ p {
 .ingredient button {
     background-color: red;
     color: white;
+    opacity: 0.5;
     transition: opacity 0.2s;
 }
 
 .ingredient button:hover {
-    opacity: 0.5;
+    opacity: 1;
+}
+
+.ingredient div {
+    font-size: 1rem;
 }
 
 #total-start {
@@ -96,8 +105,25 @@ p {
     text-align: end;
 }
 
-#recipe-create-button {
+strong {
+    font-size: 1rem;
+}
 
+#recipe-create-button {
+    width: fit-content;
+    justify-self: center;
+    padding: 5px 15px;
+    background-color: lightgreen;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+#recipe-create-button:hover {
+    transition-property: background-color transform;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    background-color: green;
+    transform: scale(1.05);
 }
 
 #recipe-card-area {
