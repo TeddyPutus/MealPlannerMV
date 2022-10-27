@@ -11,11 +11,71 @@
 <body>
 	<header>
 
+		<h1>Meal Planner App</h1>
+
+		<h2>instructions...</h2>
+
 	</header>
 
 	<main>
-		<section id="recipe-form-area"></section>
-		<section id="recipe-card-area"></section>
+
+		<!-- recipie creation area -->
+		<section id="recipe-form-area">
+
+			<input type="text" id="recipie-form-title" placeholder="Enter recipie name...">
+
+			<!-- form to add ingredient -->
+			<section>
+
+				<input type="text" id="recipie-ingredient-text-box">
+
+				<input type="number" id="amount">
+
+				<input type="text" id="unit" value="g">
+
+				<button id="recipie-ingredient-add-button">+</button>
+
+			</section>
+
+			<!-- a container for our added ingredients -->
+			<section id="added-ingredients">
+
+				<section id="top">
+
+					<p>Calories</p>
+
+					<p>Carbs</p>
+
+					<p>Fat</p>
+
+					<p>Protein</p>
+
+				</section>
+
+			</section>
+
+			<!-- a container for our total stats and recipie button -->
+			<section>
+
+				<p id="total-p-calories">0g</p>
+
+				<p id="total-p-carbs">0g</p>
+
+				<p id="total-p-fat">0g</p>
+
+				<p id="total-p-protein">0g</p>
+
+				<button id="recipie-create-button">CREATE<br>RECIPIE</button>
+
+			</section>
+
+		</section>
+
+		<!-- finalised recipie crads -->
+		<section id="recipe-card-area">
+
+		</section>
+
 	</main>
 
 	<footer>
