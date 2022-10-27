@@ -119,10 +119,11 @@ strong {
 }
 
 #recipe-create-button:hover {
-    transition-property: background-color transform;
+    transition-property: color background-color transform;
     transition-duration: 0.2s;
     transition-timing-function: linear;
     background-color: green;
+    color: white;
     transform: scale(1.05);
 }
 
