@@ -7,19 +7,56 @@ header{
 
 }
 
+p {
+    margin: 0;
+}
+
 #recipe-form-area{
     max-width: 600px;
     display: grid;
-    grid-template-rows: 20% 10% 50% 20%;
+    grid-template-rows: auto auto 50% 20%;
     row-gap: 10px;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid black;
 }
 
 #recipe-form-title {
     text-align: center;
 }
 
+#ingredient-settings {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 5px;
+    row-gap: 5px;
+}
+
+#recipe-ingredient-text-box {
+    width: 60%;
+}
+
 #amount {
+    width: 15%;
     text-align: end;
+}
+
+#unit {
+    width: 7%;
+}
+
+#recipe-ingredient-add-button {
+    width: 5%;
+    font-size: 20px;
+    background-color: green;
+    color: white;
+    transition: opacity 0.2s;
+}
+
+#recipe-ingredient-add-button:hover {
+    opacity: 0.6;
 }
 
 #recipe-card-area{
