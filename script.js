@@ -46,35 +46,10 @@ function createRecipeForm(){
     const addIngredientWeight = document.getElementById("amount");
 
     const addIngredientButton = document.getElementById("recipe-ingredient-add-button");
-    addIngredientButton.innerText = "Add Ingredient";
     //callback to add the ingredient to the div and update our values
     addIngredientButton.addEventListener("click", () => {
-        createIngredientDiv(addIngredientTextInput.value, addIngredientWeight.value).then((nutritionalValues) => {
-            // console.log(nutritionalValues);
-            // let caloriesToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
-            // let carbsToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
-            // let fatToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
-            // let proteinToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
-    
-            // totalCaloriesValue += caloriesToAdd;
-            // totalCarbsValue += carbsToAdd;
-            // totalFatValue += fatToAdd;
-            // totalProteinValue += proteinToAdd;
-    
-            // totalCalories.innerText = `${totalCaloriesValue}g`;
-            // totalCarbs.innerText = `${totalCarbsValue}g`;
-            // totalFat.innerText = `${totalFatValue}g`;
-            // totalProtein.innerText = `${totalProteinValue}g`;
-    
-            // ingredientList.append( {
-            //     name: addIngredientTextInput.value,
-            //     calories: totalCaloriesValue,
-            //     carbs: totalCarbsValue,
-            //     fat: totalFatValue,
-            //     protein: totalProteinValue
-            // });
-        });    
-    })
+        createIngredientDiv(addIngredientTextInput.value, addIngredientWeight.value)
+    });
     
     const createRecipeButton  = document.getElementById("recipe-create-button");
     createRecipeButton.addEventListener("click", () => {
@@ -118,9 +93,9 @@ async function createIngredientDiv(ingredient, weight){
         const totalProtein = document.getElementById("total-p-protein");
 
         let caloriesToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
-        let carbsToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
-        let fatToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
-        let proteinToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
+        let carbsToAdd = parseFloat(data[1].carbs.slice(0, -1)); //remove the char at the end!
+        let fatToAdd = parseFloat(data[1].fat.slice(0, -1)); //remove the char at the end!
+        let proteinToAdd = parseFloat(data[1].protein.slice(0, -1)); //remove the char at the end!
 
         totalCaloriesValue += caloriesToAdd;
         totalCarbsValue += carbsToAdd;
