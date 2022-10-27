@@ -1,6 +1,5 @@
 body{
     margin: 0;
-    height: 100vh;
 }
 
 header{
@@ -8,8 +7,9 @@ header{
 }
 
 main {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 50px;
 }
 
 p {
@@ -128,5 +128,6 @@ strong {
 }
 
 #recipe-card-area {
-    
+    border: 1px solid black;
+    justify-self: center;
 }
