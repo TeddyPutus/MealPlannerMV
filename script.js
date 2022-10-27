@@ -1,4 +1,4 @@
-let apiKey = "2a9279236f6042bda1b2586384e3c3f7";
+let apiKey = "3238d82b22554c6eaad32689862567d2";
 // let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
 
 // async function fetchIngredient(food) { 
