@@ -4,17 +4,23 @@ body{
 }
 
 header{
+    text-align: center;
+}
 
+main {
+    display: flex;
+    justify-content: center;
 }
 
 p {
     margin: 0;
+    font-size: 1rem;
 }
 
 #recipe-form-area{
     max-width: 600px;
     display: grid;
-    grid-template-rows: auto auto 50% 20%;
+    grid-template-rows: auto auto auto auto;
     row-gap: 10px;
     padding: 10px;
     font-size: 20px;
@@ -29,26 +35,25 @@ p {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     column-gap: 5px;
     row-gap: 5px;
 }
 
 #recipe-ingredient-text-box {
-    width: 60%;
+    width: 300px;
 }
 
 #amount {
-    width: 15%;
+    width: 100px;
     text-align: end;
 }
 
 #unit {
-    width: 7%;
+    width: 50px;
 }
 
 #recipe-ingredient-add-button {
-    width: 5%;
     font-size: 20px;
     background-color: green;
     color: white;
