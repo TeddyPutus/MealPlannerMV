@@ -7,6 +7,10 @@ async function fetchIngredient(str) {
   let [myIngredient] = data.results.filter(
     (ingredient) => ingredient.name === str
   );
+<<<<<<< HEAD
+  // console.log(myIngredient);
+=======
+>>>>>>> refs/remotes/origin/dev
 
   return myIngredient;
 } // all async functions return a promise
@@ -17,6 +21,11 @@ async function nutritionalValues(ingredient) {
   let response = await fetch(url);
   let data = await response.json();
 
+<<<<<<< HEAD
+  // console.log(data);
+
+=======
+>>>>>>> refs/remotes/origin/dev
   return data;
 }
 
