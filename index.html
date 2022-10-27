@@ -25,11 +25,11 @@
 			<input type="text" id="recipe-form-title" placeholder="Enter recipe name...">
 
 			<!-- form to add ingredient -->
-			<section>
+			<section id="ingredient-settings">
 
 				<input type="text" id="recipe-ingredient-text-box" placeholder="Ingredient...">
 
-				<input type="number" id="amount" placeholder="Amount...">
+				<input type="number" id="amount" placeholder="Weight...">
 
 				<input type="text" id="unit" value="g">
 
@@ -40,34 +40,32 @@
 			<!-- a container for our added ingredients -->
 			<section id="added-ingredients">
 
-				<section id="top">
+				<p id="start" class="descriptor">Cals</p>
 
-					<p>Calories</p>
+				<p class="descriptor">Carbs</p>
 
-					<p>Carbs</p>
+				<p class="descriptor">Fat</p>
 
-					<p>Fat</p>
-
-					<p>Protein</p>
-
-				</section>
+				<p class="descriptor">Protein</p>
 
 			</section>
 
 			<!-- a container for our total stats and recipe button -->
-			<section>
+			<section id="totals">
 
-				<p id="total-p-calories">0g</p>
+				<strong id="total-start">Total = </strong>
 
-				<p id="total-p-carbs">0g</p>
+				<strong id="total-p-calories">0g</strong>
 
-				<p id="total-p-fat">0g</p>
+				<strong id="total-p-carbs">0g</strong>
 
-				<p id="total-p-protein">0g</p>
+				<strong id="total-p-fat">0g</strong>
 
-				<button id="recipe-create-button">CREATE<br>RECIPE</button>
+				<strong id="total-p-protein">0g</strong>
 
 			</section>
+
+			<button id="recipe-create-button">CREATE<br>RECIPE</button>
 
 		</section>
 
