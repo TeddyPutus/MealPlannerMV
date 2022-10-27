@@ -1,17 +1,27 @@
 body{
     margin: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 header{
     text-align: center;
+    background-color: orangered;
 }
 
 main {
+    padding: 20px 0;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
     margin: 0 auto;
+}
+
+footer {
+    text-align: center;
+    height: 100px;
+    background-color: darkorange;
 }
 
 #main-container {
