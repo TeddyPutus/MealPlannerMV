@@ -1,36 +1,32 @@
-let apiKey = "3238d82b22554c6eaad32689862567d2";
-let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
+// let apiKey = "3238d82b22554c6eaad32689862567d2";
+// let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
 
-async function fetchIngredient(food) { 
-    //Saving the API response in a constant 
-    const response =  await fetch(`https://api.spoonacular.com/food/ingredients/search?query=${food}&sort=calories&sortDirection=desc/information&apiKey=${apiKey}`)
+// async function fetchIngredient(food) { 
+//     //Saving the API response in a constant 
+//     const response =  await fetch(`https://api.spoonacular.com/food/ingredients/search?query=${food}&sort=calories&sortDirection=desc/information&apiKey=${apiKey}`)
     
-    if (response.status === 404) { 
-        alert(`${input} is not a valid ingredient... Please try again.`); 
-        return true; 
-    } 
-    const data = await response.json(); 
+//     if (response.status === 404) { 
+//         alert(`${input} is not a valid ingredient... Please try again.`); 
+//         return true; 
+//     } 
+//     const data = await response.json(); 
     
-    for(let ingredient of data.results){
-        if(ingredient.name === food) return ingredient.id
-    }
-} 
+//     for(let ingredient of data.results){
+//         if(ingredient.name === food) return ingredient.id
+//     }
+// } 
 
-async function fetchIngredientData(id, amount){
-    const response =  await fetch(`https://api.spoonacular.com/food/ingredients/${id}/information?apiKey=${apiKey}&amount=${amount}`);
-    const data = await response.json(); 
-    return data;
-}
-
-// fetchIngredient("banana").then((ingredientId) => fetchIngredientData(ingredientId, 150));
-
+// async function fetchIngredientData(id, amount){
+//     const response =  await fetch(`https://api.spoonacular.com/food/ingredients/${id}/information?apiKey=${apiKey}&amount=${amount}`);
+//     const data = await response.json(); 
+//     return data;
+// }
 
 const formArea = document.getElementById("recipe-form-area");
 const cardArea = document.getElementById("recipe-card-area");
 const addedIngredientArea = document.getElementById("added-ingredients");
 
-//To do:
-//Create recipe form function
+//Create recipe form function - gets the elements from the html form and adds callbacks to the buttons, populates values etc.
 function createRecipeForm(){
 
     let totalCaloriesValue = 0, totalCarbsValue = 0, totalFatValue = 0, totalProteinValue = 0;
@@ -84,25 +80,7 @@ function createRecipeForm(){
         } else{
             alert("Recipe needs a title and at least one ingredient!");
         }
-    }); 
-    
-
-    
-
-    
-
-
-
-    
-    
-
-    addIngredientDiv.append(addIngredientTextInput, addIngredientWeight, addIngredientButton);
-
-    //this div will contain all the created ingredient elements
-    const ingredientDiv = document.createElement("div");
-    ingredientDiv.classList.add("recipe-form-ingredient-div");
-
-    
+    });  
 }
 
 function createIngredientDiv(ingredient, weight){
@@ -128,7 +106,7 @@ function createIngredientDiv(ingredient, weight){
 
         ingredientDiv.append(deleteButton, ingredientName, calories, carbs, fat, protein);
         
-        document.querySelector(".recipe-form-ingredient-div").append(ingredientDiv);
+        document.getElementById("added-ingredients").append(ingredientDiv);
 
         return data[1];
     });
@@ -149,9 +127,9 @@ async function fetchIngredientList(str) {
     // console.log(myIngredient);
   
     return myIngredient;
-  } // all async functions return a promise
+} // all async functions return a promise
   
-  async function nutritionalValues(ingredient) {
+async function nutritionalValues(ingredient) {
     const url = `https://api.spoonacular.com/recipes/${ingredient.id}/nutritionWidget.json?apiKey=565107c2332d437082260ddcf117d8f7&amount=100&unit=g`;
   
     let response = await fetch(url);
@@ -160,9 +138,9 @@ async function fetchIngredientList(str) {
     // console.log(data);
   
     return data;
-  }
+}
   
-  async function integrationFunction(ingredient) {
+async function integrationFunction(ingredient) {
     let ingredientObj = await fetchIngredientList(ingredient);
     let nutrition = await nutritionalValues(ingredientObj);
   
