@@ -32,6 +32,8 @@ const addedIngredientArea = document.getElementById("added-ingredients");
 //To do:
 //Create recipe form function
 function createRecipeForm(){
+
+    let totalCaloriesValue = 0, totalCarbsValue = 0, totalFatValue = 0, totalProteinValue = 0;
     
 
     const recipeName = document.getElementById("recipe-form-title");
@@ -41,11 +43,16 @@ function createRecipeForm(){
     const addIngredientButton = document.getElementById("recipe-ingredient-add-button");
     addIngredientButton.innerText = "Add Ingredient";
     addIngredientButton.addEventListener("click", () => {
-        let nutrtionalValues = createIngredientDiv(addIngredientTextInput.value, addIngredientWeight.value)
-        let caloriesToAdd = nutritionalValues.calories.slice(0, -1); //remove the char at the end!
-        let carbsToAdd = nutritionalValues.calories.slice(0, -1); //remove the char at the end!
-        let fatToAdd = nutritionalValues.calories.slice(0, -1); //remove the char at the end!
-        let proetinToAdd = nutritionalValues.calories.slice(0, -1); //remove the char at the end!
+        let nutritionalValues = createIngredientDiv(addIngredientTextInput.value, addIngredientWeight.value);
+        let caloriesToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
+        let carbsToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
+        let fatToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
+        let proteinToAdd = parseFloat(nutritionalValues.calories.slice(0, -1)); //remove the char at the end!
+
+        totalCaloriesValue += caloriesToAdd;
+        totalCarbsValue += carbsToAdd;
+        totalFatValue += fatToAdd;
+        totalProteinValue += proteinToAdd;
     })
     
     const createRecipeButton  = document.getElementById("recipe-create-button");
