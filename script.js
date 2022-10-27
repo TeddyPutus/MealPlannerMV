@@ -1,27 +1,51 @@
 let apiKey = "3238d82b22554c6eaad32689862567d2";
-// let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
+let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
 
-// async function fetchIngredient(food) {
-//     //Saving the API response in a constant
-//     const response =  await fetch(`https://api.spoonacular.com/food/ingredients/search?query=${food}&sort=calories&sortDirection=desc/information&apiKey=${apiKey}`)
+async function fetchIngredient(food) {
+    //Saving the API response in a constant
+    const response =  await fetch(`https://api.spoonacular.com/food/ingredients/search?query=${food}&sort=calories&sortDirection=desc/information&apiKey=${apiKey}`)
 
-//     if (response.status === 404) {
-//         alert(`${input} is not a valid ingredient... Please try again.`);
-//         return true;
-//     }
-//     const data = await response.json();
+    if (response.status === 404) {
+        alert(`${input} is not a valid ingredient... Please try again.`);
+        return true;
+    }
+    const data = await response.json();
 
-//     for(let ingredient of data.results){
-//         if(ingredient.name === food) return ingredient.id
-//     }
-// }
+    for(let ingredient of data.results){
+        if(ingredient.name === food) return ingredient.id
+    }
+}
 
-// async function fetchIngredientData(id, amount){
-//     const response =  await fetch(`https://api.spoonacular.com/food/ingredients/${id}/information?apiKey=${apiKey}&amount=${amount}`);
-//     const data = await response.json();
-//     return data;
-// }
+async function fetchIngredientData(id, amount){
+    const response =  await fetch(`https://api.spoonacular.com/food/ingredients/${id}/information?apiKey=${apiKey}&amount=1`);
+    const data = await response.json();
+    console.log(data)
 
+    let caloriesPerServing, carbsPerServing, fatPerServing, proteinPerServing;
+
+    for(nutrient of data.nutrition.nutrients){
+        if(nutrient.name === "Calories") caloriesPerServing = nutrient.amount;
+        if(nutrient.name === "Carbohydrates") carbsPerServing = nutrient.amount;
+        if(nutrient.name === "Fat") fatPerServing = nutrient.amount;
+        if(nutrient.name === "Protein") proteinPerServing = nutrient.amount;
+    }
+
+    let servingSize = data.nutrition.weightPerServing.amount;
+    
+    caloriesPerServing = (caloriesPerServing / servingSize) * amount;
+    carbsPerServing = (carbsPerServing / servingSize) * amount;
+    fatPerServing = (fatPerServing / servingSize) * amount;
+    proteinPerServing = (proteinPerServing / servingSize) * amount;
+
+    return [data.name,
+        {
+            calories: caloriesPerServing.toFixed(2),
+            carbs: carbsPerServing.toFixed(2),
+            fat: fatPerServing.toFixed(2),
+            protein: proteinPerServing.toFixed(2),
+          },
+        ];
+}
 /*Recipe Card Function*/
 const mainSection = document.getElementById("recipe-card-area");
 
@@ -164,7 +188,7 @@ function createRecipeForm() {
 }
 
 async function createIngredientDiv(ingredient, weight) {
-  integrationFunction(ingredient).then((data) => {
+  fetchIngredient(ingredient).then((data) => fetchIngredientData(data, weight)).then((data) =>{
     const ingredientDiv = document.createElement("section");
     ingredientDiv.classList.add("ingredient");
 
@@ -197,20 +221,20 @@ async function createIngredientDiv(ingredient, weight) {
 
     document.getElementById("added-ingredients").append(ingredientDiv);
 
-    let caloriesToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
-    let carbsToAdd = parseFloat(data[1].carbs.slice(0, -1)); //remove the char at the end!
-    let fatToAdd = parseFloat(data[1].fat.slice(0, -1)); //remove the char at the end!
-    let proteinToAdd = parseFloat(data[1].protein.slice(0, -1)); //remove the char at the end!
+    // let caloriesToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
+    // let carbsToAdd = parseFloat(data[1].carbs.slice(0, -1)); //remove the char at the end!
+    // let fatToAdd = parseFloat(data[1].fat.slice(0, -1)); //remove the char at the end!
+    // let proteinToAdd = parseFloat(data[1].protein.slice(0, -1)); //remove the char at the end!
 
-    totalCaloriesValue += caloriesToAdd;
-    totalCarbsValue += carbsToAdd;
-    totalFatValue += fatToAdd;
-    totalProteinValue += proteinToAdd;
+    // totalCaloriesValue += caloriesToAdd;
+    // totalCarbsValue += carbsToAdd;
+    // totalFatValue += fatToAdd;
+    // totalProteinValue += proteinToAdd;
 
-    totalCalories.innerText = `${totalCaloriesValue}k`;
-    totalCarbs.innerText = `${totalCarbsValue}g`;
-    totalFat.innerText = `${totalFatValue}g`;
-    totalProtein.innerText = `${totalProteinValue}g`;
+    totalCalories.innerText = `${data[1].calories}k`;
+    totalCarbs.innerText = `${data[1].carbs}g`;
+    totalFat.innerText = `${data[1].fat}g`;
+    totalProtein.innerText = `${data[1].protein}g`;
 
     ingredientList.push({
       name: ingredient,
@@ -269,12 +293,13 @@ async function fetchIngredientList(str) {
 } // all async functions return a promise
 
 async function nutritionalValues(ingredient) {
-  const url = `https://api.spoonacular.com/recipes/${ingredient.id}/nutritionWidget.json?apiKey=${apiKey}&amount=100&unit=g`;
+//   const url = `https://api.spoonacular.com/recipes/${ingredient.id}/nutritionWidget.json?apiKey=${apiKey}&amount=100&unit=g`;
+  const url = `https://api.spoonacular.com/recipes/${ingredient.id}/ingredientWidget.json?apiKey=${apiKey}&amount=100&unit=g`;
 
   let response = await fetch(url);
   let data = await response.json();
 
-  // console.log(data);
+  console.log(data);
 
   return data;
 }
