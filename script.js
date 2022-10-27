@@ -164,7 +164,6 @@ async function integrationFunction(ingredient) {
 
 //Create recipe card function
 
-//very important to call this - or we will have no functionality!!
 createRecipeForm()
 
 const stefExampleOutput =   ["apple", {
