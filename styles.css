@@ -65,9 +65,9 @@ p {
     opacity: 0.6;
 }
 
-#added-ingredients {
+#added-ingredients, .ingredient, #totals{
     display: grid;
-    grid-template-columns: 10% 50% 10% 10% 10% 10%;
+    grid-template-columns: 10% 30% 15% 15% 15% 15%;
     text-align: center;
 }
 
@@ -75,6 +75,15 @@ p {
     grid-column-start: 3;
 }
 
+.ingredient {
+    grid-column-start: 1;
+    grid-column-end: 7;
+}
+
+#total-start {
+    grid-column-start: 2;
+    text-align: end;
+}
 
 #recipe-card-area{
     
