@@ -1,4 +1,4 @@
-// let apiKey = "3238d82b22554c6eaad32689862567d2";
+let apiKey = "3238d82b22554c6eaad32689862567d2";
 // let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
 
 // async function fetchIngredient(food) { 
@@ -25,22 +25,17 @@
 const formArea = document.getElementById("recipe-form-area");
 const cardArea = document.getElementById("recipe-card-area");
 const addedIngredientArea = document.getElementById("added-ingredients");
+const totalCalories = document.getElementById("total-p-calories");
+const totalCarbs = document.getElementById("total-p-carbs");
+const totalFat = document.getElementById("total-p-fat");
+const totalProtein = document.getElementById("total-p-protein");
 
 let totalCaloriesValue = 0, totalCarbsValue = 0, totalFatValue = 0, totalProteinValue = 0;
 const ingredientList = [];
 
 //Create recipe form function - gets the elements from the html form and adds callbacks to the buttons, populates values etc.
 function createRecipeForm(){
-
     
-
-    //nutritional information
-    const totalCalories = document.getElementById("total-p-calories");
-    const totalCarbs = document.getElementById("total-p-carbs");
-    const totalFat = document.getElementById("total-p-fat");
-    const totalProtein = document.getElementById("total-p-protein");
-    
-
     const recipeName = document.getElementById("recipe-form-title");
     const addIngredientTextInput = document.getElementById("recipe-ingredient-text-box");
     const addIngredientWeight = document.getElementById("amount");
@@ -55,7 +50,7 @@ function createRecipeForm(){
     createRecipeButton.addEventListener("click", () => {
         if(ingredientList.length > 0 && recipeName.value !== ""){
             //we have ingredients and title
-            createEvent(recipeName.value, totalCaloriesValue, totalCarbsValue, totalFatValue, totalProteinValue, ingredientList);
+            createCard(recipeName.value, totalCaloriesValue, totalCarbsValue, totalFatValue, totalProteinValue, ingredientList);
         } else{
             alert("Recipe needs a title and at least one ingredient!");
         }
@@ -69,7 +64,10 @@ async function createIngredientDiv(ingredient, weight){
         ingredientDiv.classList.add("ingredient");
 
         const deleteButton = document.createElement("button");
-        deleteButton.innerText = "Delete Recipe";
+        deleteButton.innerText = "X";
+        deleteButton.addEventListener("click", () => {
+            deleteIngredient(ingredient, ingredientDiv, data);
+        });
 
         const ingredientName = document.createElement("p");
         ingredientName.innerText = `${ingredient} - ${weight}g`
@@ -87,11 +85,6 @@ async function createIngredientDiv(ingredient, weight){
         
         document.getElementById("added-ingredients").append(ingredientDiv);
 
-        const totalCalories = document.getElementById("total-p-calories");
-        const totalCarbs = document.getElementById("total-p-carbs");
-        const totalFat = document.getElementById("total-p-fat");
-        const totalProtein = document.getElementById("total-p-protein");
-
         let caloriesToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
         let carbsToAdd = parseFloat(data[1].carbs.slice(0, -1)); //remove the char at the end!
         let fatToAdd = parseFloat(data[1].fat.slice(0, -1)); //remove the char at the end!
@@ -107,7 +100,7 @@ async function createIngredientDiv(ingredient, weight){
         totalFat.innerText = `${totalFatValue}g`;
         totalProtein.innerText = `${totalProteinValue}g`;
 
-        ingredientList.append( {
+        ingredientList.push( {
             name: ingredient,
             calories: totalCaloriesValue,
             carbs: totalCarbsValue,
@@ -120,10 +113,40 @@ async function createIngredientDiv(ingredient, weight){
 
 }
 
+function deleteIngredient(ingredientName, ingredientDiv, data){
+    //remove the div from the form
+    document.getElementById("added-ingredients").removeChild(ingredientDiv);
+
+    //update the total values
+    let caloriesToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
+    let carbsToAdd = parseFloat(data[1].carbs.slice(0, -1)); //remove the char at the end!
+    let fatToAdd = parseFloat(data[1].fat.slice(0, -1)); //remove the char at the end!
+    let proteinToAdd = parseFloat(data[1].protein.slice(0, -1)); //remove the char at the end!
+
+    totalCaloriesValue -= caloriesToAdd;
+    totalCarbsValue -= carbsToAdd;
+    totalFatValue -= fatToAdd;
+    totalProteinValue -= proteinToAdd;
+
+    totalCalories.innerText = `${totalCaloriesValue}k`;
+    totalCarbs.innerText = `${totalCarbsValue}g`;
+    totalFat.innerText = `${totalFatValue}g`;
+    totalProtein.innerText = `${totalProteinValue}g`;
+
+    //find and remove ingredient entry from ingredient list
+    for(ingredient of ingredientList){
+        if(ingredient.name === ingredientName){
+            ingredientList.splice(ingredientList.indexOf(ingredient), 1)
+            break;
+        }
+    }
+
+}
+
 
 //Stef's API functions
 async function fetchIngredientList(str) {
-    const url = `https://api.spoonacular.com/food/ingredients/search?query=${str}&number=200&sort=calories&sortDirection=desc/information&apiKey=565107c2332d437082260ddcf117d8f7`;
+    const url = `https://api.spoonacular.com/food/ingredients/search?query=${str}&number=200&sort=calories&sortDirection=desc/information&apiKey=${apiKey}`;
   
     const response = await fetch(url);
     const data = await response.json();
@@ -137,7 +160,7 @@ async function fetchIngredientList(str) {
 } // all async functions return a promise
   
 async function nutritionalValues(ingredient) {
-    const url = `https://api.spoonacular.com/recipes/${ingredient.id}/nutritionWidget.json?apiKey=565107c2332d437082260ddcf117d8f7&amount=100&unit=g`;
+    const url = `https://api.spoonacular.com/recipes/${ingredient.id}/nutritionWidget.json?apiKey=${apiKey}&amount=100&unit=g`;
   
     let response = await fetch(url);
     let data = await response.json();
