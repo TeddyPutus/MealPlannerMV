@@ -22,6 +22,96 @@ let apiKey = "3238d82b22554c6eaad32689862567d2";
 //     return data;
 // }
 
+/*Recipe Card Function*/
+const mainSection = document.getElementById("recipe-card-area");
+
+function createCard(foodName, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  const title = document.createElement("h2");
+  title.classList.add("title");
+  title.innerText = foodName;
+  card.append(title);
+  // Inputs Section
+  //   const inputs = document.createElement("div");
+  //   inputs.append(card);
+  //   const ingredientName = document.createElement("input");
+  //   ingredientName.append(inputs);
+  //   const amount = document.createElement("input");
+  //   amount.append(inputs);
+  //   const unit = document.createElement("input");
+  //   unit.append(inputs);
+  //   const addIngredientBtn = document.createElement("button");
+  //   addIngredientBtn.append(inputs);
+
+  //main
+  const ingredients = document.createElement("div");
+  ingredients.classList.add("ingredients");
+  card.append(ingredients);
+  //individual ingredients ahould be created dynamically
+
+  for (let i of ingrList) {
+    const individualIngredient = document.createElement("div"); // str name of recipe
+    individualIngredient.classList.add("ingredient_and_macros");
+    ingredients.append(individualIngredient);
+    individualIngredient.classList.add("ingredient");
+    //   const deleteBtn = document.createElement("button");
+    //   deleteBtn.append(ingredients);
+
+    const ingredientName = document.createElement("div"); // ingredients list
+    ingredientName.classList.add("ingredient_name");
+    ingredientName.innerText = i.name;
+    individualIngredient.append(ingredientName);
+    const macros = document.createElement("div");
+    macros.classList.add("macros");
+    individualIngredient.append(macros);
+    const carbs = document.createElement("div");
+    carbs.innerText = i.carbs;
+    carbs.classList.add("carbs");
+    macros.append(carbs);
+    const calories = document.createElement("div");
+    calories.classList.add("calories");
+    calories.innerText = i.calories;
+    macros.append(calories);
+    const protein = document.createElement("div");
+    protein.classList.add("protein");
+    protein.innerText = i.protein;
+    macros.append(protein);
+    const fat = document.createElement("div");
+    fat.classList.add("fat");
+    fat.innerText = i.fat;
+    macros.append(fat);
+  }
+
+  //footer
+  const footer = document.createElement("div"); // iner values as float
+  footer.classList.add("total_macros");
+  card.append(footer);
+  const totalCalories = document.createElement("div");
+  totalCalories.classList.add("total_calories");
+  totalCalories.innerText = totalCals;
+  footer.append(totalCalories);
+  const totalCarbs = document.createElement("div");
+  totalCarbs.classList.add("total_carbs");
+  totalCarbs.innerText = ttlCarbs;
+  footer.append(totalCarbs);
+  const totalProtein = document.createElement("div");
+  totalProtein.classList.add("total_protein");
+  totalProtein.innerText = ttlProt;
+  footer.append(totalProtein);
+  const totalFat = document.createElement("div");
+  totalFat.classList.add("total_fat");
+  totalFat.innerText = ttlFat;
+  footer.append(totalFat);
+  //   const createRecipe = document.createElement("button");
+  //   createRecipe.append(footer);
+
+  mainSection.append(card);
+}
+
+/* End of Recipe Card Function*/ 
+
 const formArea = document.getElementById("recipe-form-area");
 const cardArea = document.getElementById("recipe-card-area");
 const addedIngredientArea = document.getElementById("added-ingredients");
