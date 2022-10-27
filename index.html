@@ -1,17 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="stefScript.js" defer></script>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<script src="script.js" defer></script>
+	<link rel="stylesheet" href="/styles.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Meal Planner App</title>
 </head>
 <body>
-    <header>
+	<header>
 
-    </header>
-    <section id="recipe-form-area"></section>
-    <section id="recipe-card-area"></section>
+		<h1>Meal Planner App</h1>
+
+		<h2>instructions...</h2>
+
+	</header>
+
+	<main>
+
+		<!-- recipe creation area -->
+		<section id="recipe-form-area">
+
+			<input type="text" id="recipe-form-title" placeholder="Enter recipe name...">
+
+			<!-- form to add ingredient -->
+			<section>
+
+				<input type="text" id="recipe-ingredient-text-box" placeholder="Ingredient...">
+
+				<input type="number" id="amount" placeholder="Amount...">
+
+				<input type="text" id="unit" value="g">
+
+				<button id="recipe-ingredient-add-button">+</button>
+
+			</section>
+
+			<!-- a container for our added ingredients -->
+			<section id="added-ingredients">
+
+				<section id="top">
+
+					<p>Calories</p>
+
+					<p>Carbs</p>
+
+					<p>Fat</p>
+
+					<p>Protein</p>
+
+				</section>
+
+			</section>
+
+			<!-- a container for our total stats and recipe button -->
+			<section>
+
+				<p id="total-p-calories">0g</p>
+
+				<p id="total-p-carbs">0g</p>
+
+				<p id="total-p-fat">0g</p>
+
+				<p id="total-p-protein">0g</p>
+
+				<button id="recipe-create-button">CREATE<br>RECIPE</button>
+
+			</section>
+
+		</section>
+
+		<!-- finalised recipe crads -->
+		<section id="recipe-card-area">
+
+		</section>
+
+	</main>
+
+	<footer>
+
+	</footer>
 </body>
 </html>

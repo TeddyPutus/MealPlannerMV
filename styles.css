@@ -1,30 +1,27 @@
 body{
     margin: 0;
     height: 100vh;
-    width: 100vw;
 }
 
 header{
 
 }
 
-#recipe-card-area{
-
-}
-
 #recipe-form-area{
-
+    max-width: 600px;
+    display: grid;
+    grid-template-rows: 20% 10% 50% 20%;
+    row-gap: 10px;
 }
 
-.recipe-form-main-div{
+#recipe-form-title {
+    text-align: center;
 }
 
-.recipe-form-add-ingredient-div{
-    display: flex;
-    flex-direction: row;
+#amount {
+    text-align: end;
 }
 
-.hide-area{
-    display: none;
-    transition: display 100;
+#recipe-card-area{
+    
 }
