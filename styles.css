@@ -67,8 +67,12 @@ p {
 
 #added-ingredients, .ingredient, #totals{
     display: grid;
-    grid-template-columns: 10% 30% 15% 15% 15% 15%;
+    grid-template-columns: auto 35% 15% 15% 15% 15%;
     text-align: center;
+}
+
+.descriptor {
+    text-decoration: underline;
 }
 
 #start {
@@ -76,8 +80,24 @@ p {
 }
 
 .ingredient {
+    margin: 5px;
     grid-column-start: 1;
     grid-column-end: 7;
+}
+
+.ingredient button {
+    background-color: red;
+    color: white;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.ingredient button:hover {
+    opacity: 1;
+}
+
+.ingredient div {
+    font-size: 1rem;
 }
 
 #total-start {
@@ -85,6 +105,28 @@ p {
     text-align: end;
 }
 
-#recipe-card-area{
+strong {
+    font-size: 1rem;
+}
+
+#recipe-create-button {
+    width: fit-content;
+    justify-self: center;
+    padding: 5px 15px;
+    background-color: lightgreen;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+#recipe-create-button:hover {
+    transition-property: color background-color transform;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    background-color: green;
+    color: white;
+    transform: scale(1.05);
+}
+
+#recipe-card-area {
     
 }
