@@ -13,66 +13,72 @@
 
 		<h1>Meal Planner App</h1>
 
-		<h2>instructions...</h2>
+		<h3>instructions...</h3>
 
 	</header>
 
 	<main>
 
-		<!-- recipe creation area -->
-		<section id="recipe-form-area">
+		<section id="main-container">
 
-			<input type="text" id="recipe-form-title" placeholder="Enter recipe name...">
+			<!-- recipe creation area -->
+			<section id="recipe-form-area">
 
-			<!-- form to add ingredient -->
-			<section id="ingredient-settings">
+				<input type="text" id="recipe-form-title" placeholder="Enter recipe name...">
 
-				<input type="text" id="recipe-ingredient-text-box" placeholder="Ingredient...">
+				<!-- form to add ingredient -->
+				<section id="ingredient-settings">
 
-				<input type="number" id="amount" placeholder="Weight...">
+					<input type="text" id="recipe-ingredient-text-box" placeholder="Ingredient...">
 
-				<input type="text" id="unit" value="g">
+					<input type="number" id="amount" placeholder="Weight...">
 
-				<button id="recipe-ingredient-add-button">+</button>
+					<input type="text" id="unit" value="g">
+
+					<button id="recipe-ingredient-add-button">+</button>
+
+				</section>
+
+				<!-- a container for our added ingredients -->
+				<section id="added-ingredients">
+
+					<p id="start" class="descriptor">Cals</p>
+
+					<p class="descriptor">Carbs</p>
+
+					<p class="descriptor">Fat</p>
+
+					<p class="descriptor">Protein</p>
+
+				</section>
+
+				<!-- a container for our total stats and recipe button -->
+				<section id="totals">
+
+					<strong id="total-start">Total = </strong>
+
+					<strong id="total-p-calories">0g</strong>
+
+					<strong id="total-p-carbs">0g</strong>
+
+					<strong id="total-p-fat">0g</strong>
+
+					<strong id="total-p-protein">0g</strong>
+
+				</section>
+
+				<button id="recipe-create-button">CREATE<br>RECIPE</button>
 
 			</section>
 
-			<!-- a container for our added ingredients -->
-			<section id="added-ingredients">
-
-				<p id="start" class="descriptor">Cals</p>
-
-				<p class="descriptor">Carbs</p>
-
-				<p class="descriptor">Fat</p>
-
-				<p class="descriptor">Protein</p>
+			<!-- finalised recipe crads -->
+			<section id="recipe-card-area">
 
 			</section>
-
-			<!-- a container for our total stats and recipe button -->
-			<section id="totals">
-
-				<strong id="total-start">Total = </strong>
-
-				<strong id="total-p-calories">0g</strong>
-
-				<strong id="total-p-carbs">0g</strong>
-
-				<strong id="total-p-fat">0g</strong>
-
-				<strong id="total-p-protein">0g</strong>
-
-			</section>
-
-			<button id="recipe-create-button">CREATE<br>RECIPE</button>
-
+			
 		</section>
 
-		<!-- finalised recipe crads -->
-		<section id="recipe-card-area">
-
-		</section>
+		
 
 	</main>
 
