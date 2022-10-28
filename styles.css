@@ -1,27 +1,220 @@
 body{
     margin: 0;
     height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 header{
+    text-align: center;
+    background-color: orangered;
+}
 
+main {
+    padding: 20px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+footer {
+    text-align: center;
+    height: 100px;
+    background-color: darkorange;
+}
+
+#main-container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+}
+
+p {
+    margin: 0;
+    font-size: 1rem;
 }
 
 #recipe-form-area{
     max-width: 600px;
     display: grid;
-    grid-template-rows: 20% 10% 50% 20%;
+    grid-template-rows: auto auto auto auto;
     row-gap: 10px;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid black;
+    margin: 0 10px;
+    justify-self: center;
 }
 
 #recipe-form-title {
     text-align: center;
 }
 
+#ingredient-settings {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    column-gap: 5px;
+    row-gap: 5px;
+}
+
+#recipe-ingredient-text-box {
+    width: 300px;
+}
+
 #amount {
+    width: 100px;
     text-align: end;
 }
 
-#recipe-card-area{
-    
+#unit {
+    width: 50px;
+}
+
+#recipe-ingredient-add-button {
+    font-size: 20px;
+    background-color: green;
+    color: white;
+    transition: opacity 0.2s;
+}
+
+#recipe-ingredient-add-button:hover {
+    opacity: 0.6;
+}
+
+#added-ingredients, .ingredient, #totals{
+    display: grid;
+    grid-template-columns: auto 35% 15% 15% 15% 15%;
+    text-align: center;
+}
+
+.descriptor {
+    text-decoration: underline;
+}
+
+#start {
+    grid-column-start: 3;
+}
+
+.ingredient {
+    margin: 5px;
+    grid-column-start: 1;
+    grid-column-end: 7;
+}
+
+.ingredient button {
+    background-color: red;
+    color: white;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.ingredient button:hover {
+    opacity: 1;
+}
+
+.ingredient div {
+    font-size: 1rem;
+}
+
+#total-start {
+    grid-column-start: 2;
+    text-align: end;
+}
+
+strong {
+    font-size: 1rem;
+}
+
+#recipe-create-button {
+    width: fit-content;
+    justify-self: center;
+    padding: 5px 15px;
+    background-color: lightgreen;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+#recipe-create-button:hover {
+    transition-property: color background-color transform;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    background-color: green;
+    color: white;
+    transform: scale(1.10);
+}
+
+#recipe-card-area {
+    border: 1px solid black;
+    max-width: 1800px;
+    justify-self: center;
+    padding: 10px;
+    font-size: 20px;
+    margin: 0 10px;
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 60px;
+}
+
+@media (min-width: 550px) and (max-width: 1000px) {
+    #recipe-card-area {
+        grid-template-columns: auto auto;
+        row-gap: 50px;
+        column-gap: 50px;
+    }
+}
+
+@media (min-width: 1001px) and (max-width: 1550px) {
+    #recipe-card-area {
+        grid-template-columns: auto auto auto;
+        row-gap: 35px;
+        column-gap: 35px;
+    }
+}
+
+@media (min-width: 1551px) and (max-width: 2100px) {
+    #recipe-card-area {
+        grid-template-columns: auto auto auto auto;
+        row-gap: 20px;
+        column-gap: 20px;
+    }
+}
+
+.card {
+    border: 1px solid black;
+}
+
+.ingredient_and_macros {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.ingredient_and_macros {
+    text-align: center;
+}
+
+.macros {
+    display: grid;
+    width: 250px;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.total_macros {
+    font-size: 16px;
+    text-decoration: underline;
+    display: grid;
+    width: 250px;
+    grid-template-columns: 25% 25% 25% 25%;
+    text-align: center;
+    margin-left: auto;
+}
+
+h2 {
+    text-align: center;
+    text-decoration: underline;
+    margin: 0;
 }

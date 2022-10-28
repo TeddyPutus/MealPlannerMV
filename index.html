@@ -13,68 +13,72 @@
 
 		<h1>Meal Planner App</h1>
 
-		<h2>instructions...</h2>
+		<h3>instructions...</h3>
 
 	</header>
 
 	<main>
 
-		<!-- recipe creation area -->
-		<section id="recipe-form-area">
+		<section id="main-container">
 
-			<input type="text" id="recipe-form-title" placeholder="Enter recipe name...">
+			<!-- recipe creation area -->
+			<section id="recipe-form-area">
 
-			<!-- form to add ingredient -->
-			<section>
+				<input type="text" id="recipe-form-title" placeholder="Enter recipe name...">
 
-				<input type="text" id="recipe-ingredient-text-box" placeholder="Ingredient...">
+				<!-- form to add ingredient -->
+				<section id="ingredient-settings">
 
-				<input type="number" id="amount" placeholder="Amount...">
+					<input type="text" id="recipe-ingredient-text-box" placeholder="Ingredient...">
 
-				<input type="text" id="unit" value="g">
+					<input type="number" id="amount" placeholder="Weight...">
 
-				<button id="recipe-ingredient-add-button">+</button>
+					<input type="text" id="unit" value="g">
 
-			</section>
-
-			<!-- a container for our added ingredients -->
-			<section id="added-ingredients">
-
-				<section id="top">
-
-					<p>Calories</p>
-
-					<p>Carbs</p>
-
-					<p>Fat</p>
-
-					<p>Protein</p>
+					<button id="recipe-ingredient-add-button">+</button>
 
 				</section>
 
-			</section>
+				<!-- a container for our added ingredients -->
+				<section id="added-ingredients">
 
-			<!-- a container for our total stats and recipe button -->
-			<section>
+					<p id="start" class="descriptor">Cals</p>
 
-				<p id="total-p-calories">0g</p>
+					<p class="descriptor">Carbs</p>
 
-				<p id="total-p-carbs">0g</p>
+					<p class="descriptor">Fat</p>
 
-				<p id="total-p-fat">0g</p>
+					<p class="descriptor">Protein</p>
 
-				<p id="total-p-protein">0g</p>
+				</section>
+
+				<!-- a container for our total stats and recipe button -->
+				<section id="totals">
+
+					<strong id="total-start">Total = </strong>
+
+					<strong id="total-p-calories">0g</strong>
+
+					<strong id="total-p-carbs">0g</strong>
+
+					<strong id="total-p-fat">0g</strong>
+
+					<strong id="total-p-protein">0g</strong>
+
+				</section>
 
 				<button id="recipe-create-button">CREATE<br>RECIPE</button>
 
 			</section>
 
+			<!-- finalised recipe crads -->
+			<section id="recipe-card-area">
+
+			</section>
+			
 		</section>
 
-		<!-- finalised recipe crads -->
-		<section id="recipe-card-area">
-
-		</section>
+		
 
 	</main>
 
