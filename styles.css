@@ -44,7 +44,8 @@ p {
     padding: 10px;
     font-size: 20px;
     border: 1px solid black;
-    margin: 0 10px;
+    margin: 0 auto;
+    align-self: center;
     justify-self: center;
 }
 
@@ -151,6 +152,8 @@ strong {
     border: 1px solid black;
     max-width: 1800px;
     justify-self: center;
+    justify-content: center;
+    align-items: center;
     padding: 10px;
     font-size: 20px;
     margin: 0 10px;
@@ -163,7 +166,9 @@ strong {
     #recipe-card-area {
         grid-template-columns: auto auto;
         row-gap: 50px;
-        column-gap: 50px;
+    }
+    .card {
+        margin: 0 20px;
     }
 }
 
@@ -171,7 +176,9 @@ strong {
     #recipe-card-area {
         grid-template-columns: auto auto auto;
         row-gap: 35px;
-        column-gap: 35px;
+    }
+    .card {
+        margin: 0 15px;
     }
 }
 
@@ -179,12 +186,27 @@ strong {
     #recipe-card-area {
         grid-template-columns: auto auto auto auto;
         row-gap: 20px;
-        column-gap: 20px;
+    }
+    .card {
+        margin: 0 10px;
     }
 }
 
 .card {
     border: 1px solid black;
+    margin: 0 25px;
+    padding: 10px;
+}
+
+.subtitle {
+    display: grid;
+    grid-template-columns: auto 61px 61px 61px 61px;
+}
+
+.subtitle div {
+    text-align: center;
+    font-size: 1rem;
+    text-decoration: underline;
 }
 
 .ingredient_and_macros {
@@ -205,10 +227,9 @@ strong {
 
 .total_macros {
     font-size: 16px;
-    text-decoration: underline;
     display: grid;
-    width: 250px;
-    grid-template-columns: 25% 25% 25% 25%;
+    width: 100%;
+    grid-template-columns: auto 61px 61px 61px 61px;
     text-align: center;
     margin-left: auto;
 }
