@@ -1,4 +1,4 @@
-let apiKey = "3238d82b22554c6eaad32689862567d2";
+let apiKey = "565107c2332d437082260ddcf117d8f7";
 let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
 
 async function fetchIngredient(food) {
@@ -99,6 +99,8 @@ function createCard(foodName, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList) {
   card.append(ingredients);
   //individual ingredients ahould be created dynamically
 
+  console.log(ingrList);
+
   for (let i of ingrList) {
     const individualIngredient = document.createElement("div"); // str name of recipe
     individualIngredient.classList.add("ingredient_and_macros");
@@ -123,13 +125,13 @@ function createCard(foodName, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList) {
     carbs.classList.add("carbs");
     macros.append(carbs);
     const protein = document.createElement("div");
-    protein.classList.add("protein");
-    protein.innerText = i.protein.toFixed(2);
-    macros.append(protein);
     const fat = document.createElement("div");
     fat.classList.add("fat");
     fat.innerText = i.fat.toFixed(2);
     macros.append(fat);
+    protein.classList.add("protein");
+    protein.innerText = i.protein.toFixed(2);
+    macros.append(protein);
   }
 
   //footer
@@ -264,7 +266,7 @@ async function createIngredientDiv(ingredient, weight) {
 
       ingredientList.push({
         name: ingredient,
-        calories: totalCaloriesValue,
+        calories: totalCaloriesValue, //come back
         carbs: totalCarbsValue,
         fat: totalFatValue,
         protein: totalProteinValue,
