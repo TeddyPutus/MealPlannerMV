@@ -2,31 +2,32 @@ let apiKey = "565107c2332d437082260ddcf117d8f7";
 let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
 
 async function fetchIngredient(food) {
-  //Saving the API response in a constant
-  // const response =  await fetch(`https://api.spoonacular.com/food/ingredients/search?query=${food}&sort=calories&sortDirection=desc&number=100/information&apiKey=${apiKey}`)
-  const response = await fetch(
-    `https://api.spoonacular.com/food/ingredients/search?query=${food}&number=100&sort=calories&sortDirection=desc/information&apiKey=${apiKey}`
-  );
 
-  if (response.status === 404) {
-    alert(`${input} is not a valid ingredient... Please try again.`);
-    return true;
-  }
-  const data = await response.json();
+    //Saving the API response in a constant
+    try{
+      const response =  await fetch(`https://api.spoonacular.com/food/ingredients/search?query=${food}&number=100&sort=calories&sortDirection=desc/information&apiKey=${apiKey}`);
+      const data = await response.json();
 
-  for (let ingredient of data.results) {
-    if (ingredient.name === food) return ingredient.id;
-  }
+      for(let ingredient of data.results){
+          if(ingredient.name === food) return ingredient.id;
+      }
 
-  //out of the for loop - we haven't found anything!
+      //out of the for loop - we haven't found anything!
+      alert(`${food} is not a valid ingredient... Please try again. Did you mean ${data.results[0].name}?`);
+      return false;
+    }catch(error){
+        alert(`${food} is not a valid ingredient... Please try again.`);
+        console.log(error);
+        return false;
+    } 
 }
 
-async function fetchIngredientData(id, amount) {
-  const response = await fetch(
-    `https://api.spoonacular.com/food/ingredients/${id}/information?apiKey=${apiKey}&amount=1`
-  );
-  const data = await response.json();
-  console.log(data);
+async function fetchIngredientData(id, amount){
+  try{
+    const response =  await fetch(`https://api.spoonacular.com/food/ingredients/${id}/information?apiKey=${apiKey}&amount=1`);
+    const data = await response.json();
+    console.log(data)
+
 
   let caloriesPerServing, carbsPerServing, fatPerServing, proteinPerServing;
 
@@ -37,22 +38,26 @@ async function fetchIngredientData(id, amount) {
     if (nutrient.name === "Protein") proteinPerServing = nutrient.amount;
   }
 
-  let servingSize = data.nutrition.weightPerServing.amount;
 
-  caloriesPerServing = (caloriesPerServing / servingSize) * amount;
-  carbsPerServing = (carbsPerServing / servingSize) * amount;
-  fatPerServing = (fatPerServing / servingSize) * amount;
-  proteinPerServing = (proteinPerServing / servingSize) * amount;
+    let servingSize = data.nutrition.weightPerServing.amount;
+    
+    caloriesPerServing = (caloriesPerServing / servingSize) * amount;
+    carbsPerServing = (carbsPerServing / servingSize) * amount;
+    fatPerServing = (fatPerServing / servingSize) * amount;
+    proteinPerServing = (proteinPerServing / servingSize) * amount;
 
-  return [
-    data.name,
-    {
-      calories: caloriesPerServing,
-      carbs: carbsPerServing,
-      fat: fatPerServing,
-      protein: proteinPerServing,
-    },
-  ];
+    return [data.name,
+        {
+            calories: caloriesPerServing,
+            carbs: carbsPerServing,
+            fat: fatPerServing,
+            protein: proteinPerServing,
+          },
+        ];
+      } catch(error){
+        console.log(error);
+      }
+
 }
 /*Recipe Card Function*/
 const mainSection = document.getElementById("recipe-card-area");
@@ -219,9 +224,12 @@ function createRecipeForm() {
 }
 
 async function createIngredientDiv(ingredient, weight) {
-  fetchIngredient(ingredient)
-    .then((data) => fetchIngredientData(data, weight))
-    .then((data) => {
+
+  fetchIngredient(ingredient).then((data) => fetchIngredientData(data, weight)).then((data) =>{
+
+    if(data){
+
+
       const ingredientDiv = document.createElement("section");
       ingredientDiv.classList.add("ingredient");
 
@@ -235,7 +243,9 @@ async function createIngredientDiv(ingredient, weight) {
       ingredientName.innerText = `${ingredient} - ${weight}g`;
 
       const calories = document.createElement("div");
-      calories.innerText = `${data[1].calories.toFixed(2)}k`;
+
+      calories.innerText = `${data[1].calories.toFixed(2)}`;
+
       const fat = document.createElement("div");
       fat.innerText = `${data[1].fat.toFixed(2)}g`;
       const carbs = document.createElement("div");
@@ -259,19 +269,21 @@ async function createIngredientDiv(ingredient, weight) {
       totalFatValue += data[1].fat;
       totalProteinValue += data[1].protein;
 
-      totalCalories.innerText = `${totalCaloriesValue.toFixed(2)}k`;
+
+      totalCalories.innerText = `${totalCaloriesValue.toFixed(2)}`;
       totalCarbs.innerText = `${totalCarbsValue.toFixed(2)}g`;
       totalFat.innerText = `${totalFatValue.toFixed(2)}g`;
       totalProtein.innerText = `${totalProteinValue.toFixed(2)}g`;
 
       ingredientList.push({
         name: ingredient,
-        calories: totalCaloriesValue, //come back
-        carbs: totalCarbsValue,
-        fat: totalFatValue,
-        protein: totalProteinValue,
+        calories: data[1].calories,
+        carbs: data[1].carbs,
+        fat: data[1].fat,
+        protein: data[1].protein,
       });
-    });
+  }
+  });
 }
 
 function deleteIngredient(ingredientName, ingredientDiv, data) {
@@ -289,7 +301,7 @@ function deleteIngredient(ingredientName, ingredientDiv, data) {
   totalFatValue -= fatToAdd;
   totalProteinValue -= proteinToAdd;
 
-  totalCalories.innerText = `${totalCaloriesValue}k`;
+  totalCalories.innerText = `${totalCaloriesValue}`;
   totalCarbs.innerText = `${totalCarbsValue}g`;
   totalFat.innerText = `${totalFatValue}g`;
   totalProtein.innerText = `${totalProteinValue}g`;
