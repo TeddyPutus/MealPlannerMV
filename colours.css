@@ -1,0 +1,46 @@
+:root {
+  --header-color: #A90409;
+  --main-color: #EDE5CC;
+  --form-color: #EBD489;
+  --footer-color: #648813;
+}
+
+header {
+  background-color: var(--header-color);
+  color:blanchedalmond;
+}
+
+h3 {
+  color: white;
+  text-shadow: 1px 1px black;
+  font-style: italic;
+}
+
+body {
+  background-color: var(--main-color);
+}
+
+input {
+  background-color: white;
+  border-style: none;
+
+}
+
+#recipe-form-area {
+  background-color: var(--form-color);
+  border-radius: 30px;
+  border: none;
+}
+
+#recipe-ingredient-add-button {
+  border-radius: 50%;
+  background-color: var(--footer-color);
+}
+
+#recipe-create-button {
+  background-color: var(--footer-color);
+}
+
+footer {
+  background-color: #648813;
+}
