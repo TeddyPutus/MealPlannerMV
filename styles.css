@@ -44,7 +44,8 @@ p {
     padding: 10px;
     font-size: 20px;
     border: 1px solid black;
-    margin: 0 10px;
+    margin: 0 auto;
+    align-self: center;
     justify-self: center;
 }
 
@@ -163,7 +164,9 @@ strong {
     #recipe-card-area {
         grid-template-columns: auto auto;
         row-gap: 50px;
-        column-gap: 50px;
+    }
+    .card {
+        margin: 0 20px;
     }
 }
 
@@ -171,7 +174,9 @@ strong {
     #recipe-card-area {
         grid-template-columns: auto auto auto;
         row-gap: 35px;
-        column-gap: 35px;
+    }
+    .card {
+        margin: 0 15px;
     }
 }
 
@@ -179,12 +184,15 @@ strong {
     #recipe-card-area {
         grid-template-columns: auto auto auto auto;
         row-gap: 20px;
-        column-gap: 20px;
+    }
+    .card {
+        margin: 0 10px;
     }
 }
 
 .card {
     border: 1px solid black;
+    margin: 0 25px;
 }
 
 .ingredient_and_macros {
