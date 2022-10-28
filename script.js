@@ -184,7 +184,7 @@ let totalCaloriesValue = 0,
   totalCarbsValue = 0,
   totalFatValue = 0,
   totalProteinValue = 0;
-const ingredientList = [];
+let ingredientList = [];
 
 //Create recipe form function - gets the elements from the html form and adds callbacks to the buttons, populates values etc.
 function createRecipeForm() {
@@ -203,6 +203,7 @@ function createRecipeForm() {
       addIngredientTextInput.value,
       addIngredientWeight.value
     );
+    resetAddIngredient();
   });
 
   const createRecipeButton = document.getElementById("recipe-create-button");
@@ -217,10 +218,43 @@ function createRecipeForm() {
         totalProteinValue,
         ingredientList
       );
+
+      resetForm();
+
     } else {
       alert("Recipe needs a title and at least one ingredient!");
     }
   });
+}
+
+function resetAddIngredient(){
+  document.getElementById("recipe-ingredient-text-box").value = "";
+  document.getElementById("recipe-ingredient-text-box").innerText = "";
+
+  document.getElementById("amount").value = "";
+  document.getElementById("amount").innerText = "";
+}
+
+function resetForm(){
+  resetAddIngredient();
+  document.getElementById("recipe-form-title").value = "";
+  document.getElementById("recipe-form-title").innerText = "";
+
+  while (addedIngredientArea.children.length > 4) {
+    addedIngredientArea.removeChild(addedIngredientArea.lastChild);
+  } 
+
+  totalCaloriesValue = 0;
+  totalCarbsValue = 0;
+  totalFatValue = 0;
+  totalProteinValue = 0;
+
+  totalCalories.innerText = `${totalCaloriesValue.toFixed(2)}`;
+  totalCarbs.innerText = `${totalCarbsValue.toFixed(2)}g`;
+  totalFat.innerText = `${totalFatValue.toFixed(2)}g`;
+  totalProtein.innerText = `${totalProteinValue.toFixed(2)}g`;
+
+  ingredientList = [];
 }
 
 async function createIngredientDiv(ingredient, weight) {
@@ -293,10 +327,10 @@ function deleteIngredient(ingredientName, ingredientDiv, data) {
   document.getElementById("added-ingredients").removeChild(ingredientDiv);
 
 
-  totalCaloriesValue = data[1].calories > 0 ? totalCaloriesValue - data[1].calories : 0;
-  totalCarbsValue = data[1].carbs > 0 ? totalCarbsValue - data[1].carbs : 0;
-  totalFatValue = data[1].fat > 0 ? totalFatValue - data[1].fat : 0;
-  totalProteinValue = data[1].protein > 0 ? totalProteinValue - data[1].protein : 0;
+  totalCaloriesValue =  totalCaloriesValue - data[1].calories > 0 ? totalCaloriesValue - data[1].calories : 0;
+  totalCarbsValue = totalCarbsValue - data[1].carbs > 0 ? totalCarbsValue - data[1].carbs : 0;
+  totalFatValue = totalFatValue - data[1].fat > 0 ? totalFatValue - data[1].fat : 0;
+  totalProteinValue =  totalProteinValue - data[1].protein > 0 ? totalProteinValue - data[1].protein : 0;
 
   totalCalories.innerText = `${totalCaloriesValue.toFixed(2)}`;
   totalCarbs.innerText = `${totalCarbsValue.toFixed(2)}g`;
