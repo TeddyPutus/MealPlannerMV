@@ -1,7 +1,8 @@
-let apiKey = "3238d82b22554c6eaad32689862567d2";
+let apiKey = "565107c2332d437082260ddcf117d8f7";
 let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
 
 async function fetchIngredient(food) {
+
     //Saving the API response in a constant
     try{
       const response =  await fetch(`https://api.spoonacular.com/food/ingredients/search?query=${food}&number=100&sort=calories&sortDirection=desc/information&apiKey=${apiKey}`);
@@ -27,14 +28,16 @@ async function fetchIngredientData(id, amount){
     const data = await response.json();
     console.log(data)
 
-    let caloriesPerServing, carbsPerServing, fatPerServing, proteinPerServing;
 
-    for(nutrient of data.nutrition.nutrients){
-        if(nutrient.name === "Calories") caloriesPerServing = nutrient.amount;
-        if(nutrient.name === "Carbohydrates") carbsPerServing = nutrient.amount;
-        if(nutrient.name === "Fat") fatPerServing = nutrient.amount;
-        if(nutrient.name === "Protein") proteinPerServing = nutrient.amount;
-    }
+  let caloriesPerServing, carbsPerServing, fatPerServing, proteinPerServing;
+
+  for (nutrient of data.nutrition.nutrients) {
+    if (nutrient.name === "Calories") caloriesPerServing = nutrient.amount;
+    if (nutrient.name === "Carbohydrates") carbsPerServing = nutrient.amount;
+    if (nutrient.name === "Fat") fatPerServing = nutrient.amount;
+    if (nutrient.name === "Protein") proteinPerServing = nutrient.amount;
+  }
+
 
     let servingSize = data.nutrition.weightPerServing.amount;
     
@@ -54,6 +57,7 @@ async function fetchIngredientData(id, amount){
       } catch(error){
         console.log(error);
       }
+
 }
 /*Recipe Card Function*/
 const mainSection = document.getElementById("recipe-card-area");
@@ -66,23 +70,41 @@ function createCard(foodName, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList) {
   title.classList.add("title");
   title.innerText = foodName;
   card.append(title);
-  // Inputs Section
-  //   const inputs = document.createElement("div");
-  //   inputs.append(card);
-  //   const ingredientName = document.createElement("input");
-  //   ingredientName.append(inputs);
-  //   const amount = document.createElement("input");
-  //   amount.append(inputs);
-  //   const unit = document.createElement("input");
-  //   unit.append(inputs);
-  //   const addIngredientBtn = document.createElement("button");
-  //   addIngredientBtn.append(inputs);
+
+  const subtitleSection = document.createElement("section");
+  subtitleSection.classList.add("subtitleSection");
+  card.append(subtitleSection);
+  const subtitle = document.createElement("div");
+  subtitle.classList.add("subtitle");
+  subtitleSection.append(subtitle);
+  const ing = document.createElement("div");
+  ing.classList.add("ing");
+  ing.innerText = "Ingredient";
+  const cals = document.createElement("div");
+  cals.classList.add("cals");
+  cals.innerText = "Cals";
+  const crbs = document.createElement("div");
+  crbs.classList.add("crbs");
+  crbs.innerText = "Carbs";
+  const ft = document.createElement("div");
+  ft.classList.add("ft");
+  ft.innerText = "Fat";
+  const prt = document.createElement("div");
+  prt.classList.add("prt");
+  prt.innerText = "Protein";
+  subtitle.append(ing);
+  subtitle.append(cals);
+  subtitle.append(crbs);
+  subtitle.append(ft);
+  subtitle.append(prt);
 
   //main
   const ingredients = document.createElement("div");
   ingredients.classList.add("ingredients");
   card.append(ingredients);
   //individual ingredients ahould be created dynamically
+
+  console.log(ingrList);
 
   for (let i of ingrList) {
     const individualIngredient = document.createElement("div"); // str name of recipe
@@ -101,42 +123,47 @@ function createCard(foodName, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList) {
     individualIngredient.append(macros);
     const calories = document.createElement("div");
     calories.classList.add("calories");
-    calories.innerText = i.calories;
+    calories.innerText = i.calories.toFixed(2);
     macros.append(calories);
     const carbs = document.createElement("div");
-    carbs.innerText = i.carbs;
+    carbs.innerText = i.carbs.toFixed(2);
     carbs.classList.add("carbs");
     macros.append(carbs);
     const protein = document.createElement("div");
-    protein.classList.add("protein");
-    protein.innerText = i.protein;
-    macros.append(protein);
     const fat = document.createElement("div");
     fat.classList.add("fat");
-    fat.innerText = i.fat;
+    fat.innerText = i.fat.toFixed(2);
     macros.append(fat);
+    protein.classList.add("protein");
+    protein.innerText = i.protein.toFixed(2);
+    macros.append(protein);
   }
 
   //footer
   const footer = document.createElement("div"); // iner values as float
   footer.classList.add("total_macros");
   card.append(footer);
-  const totalCalories = document.createElement("div");
+  const total = document.createElement("strong");
+  total.classList.add("total");
+  total.innerText = "Total:";
+  footer.append(total);
+  const totalCalories = document.createElement("strong");
   totalCalories.classList.add("total_calories");
-  totalCalories.innerText = totalCals;
+  totalCalories.innerText = `${totalCals.toFixed(2)}`;
   footer.append(totalCalories);
-  const totalCarbs = document.createElement("div");
+  const totalCarbs = document.createElement("strong");
   totalCarbs.classList.add("total_carbs");
-  totalCarbs.innerText = ttlCarbs;
+  totalCarbs.innerText = `${ttlCarbs.toFixed(2)}g`;
   footer.append(totalCarbs);
-  const totalProtein = document.createElement("div");
-  totalProtein.classList.add("total_protein");
-  totalProtein.innerText = ttlProt;
-  footer.append(totalProtein);
-  const totalFat = document.createElement("div");
+  const totalFat = document.createElement("strong");
   totalFat.classList.add("total_fat");
-  totalFat.innerText = ttlFat;
+  totalFat.innerText = `${ttlFat.toFixed(2)}g`;
   footer.append(totalFat);
+  const totalProtein = document.createElement("strong");
+  totalProtein.classList.add("total_protein");
+  totalProtein.innerText = `${ttlProt.toFixed(2)}g`;
+  footer.append(totalProtein);
+
   //   const createRecipe = document.createElement("button");
   //   createRecipe.append(footer);
 
@@ -197,9 +224,11 @@ function createRecipeForm() {
 }
 
 async function createIngredientDiv(ingredient, weight) {
+
   fetchIngredient(ingredient).then((data) => fetchIngredientData(data, weight)).then((data) =>{
 
     if(data){
+
 
       const ingredientDiv = document.createElement("section");
       ingredientDiv.classList.add("ingredient");
@@ -214,7 +243,9 @@ async function createIngredientDiv(ingredient, weight) {
       ingredientName.innerText = `${ingredient} - ${weight}g`;
 
       const calories = document.createElement("div");
+
       calories.innerText = `${data[1].calories.toFixed(2)}`;
+
       const fat = document.createElement("div");
       fat.innerText = `${data[1].fat.toFixed(2)}g`;
       const carbs = document.createElement("div");
@@ -238,6 +269,7 @@ async function createIngredientDiv(ingredient, weight) {
       totalFatValue += data[1].fat;
       totalProteinValue += data[1].protein;
 
+
       totalCalories.innerText = `${totalCaloriesValue.toFixed(2)}`;
       totalCarbs.innerText = `${totalCarbsValue.toFixed(2)}g`;
       totalFat.innerText = `${totalFatValue.toFixed(2)}g`;
@@ -252,7 +284,6 @@ async function createIngredientDiv(ingredient, weight) {
       });
   }
   });
-  
 }
 
 function deleteIngredient(ingredientName, ingredientDiv, data) {
