@@ -41,6 +41,20 @@ input {
   background-color: var(--footer-color);
 }
 
+#recipe-card-area {
+  border: none;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+}
+
+.ingredient_name {
+  background-color: var(--header-color);
+  color: white;
+}
+
 footer {
   background-color: #648813;
 }
