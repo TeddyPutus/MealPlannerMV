@@ -1,4 +1,4 @@
-let apiKey = "565107c2332d437082260ddcf117d8f7";
+let apiKey = "7824e4b85f7f4a46aaa88f2ff5ac30e4";
 let imageURL = "https://spoonacular.com/cdn/ingredients_100x100/"; //just append contents of image property to this, and you can have image of ingredients
 
 async function fetchIngredient(food) {
@@ -62,14 +62,19 @@ async function fetchIngredientData(id, amount){
 /*Recipe Card Function*/
 const mainSection = document.getElementById("recipe-card-area");
 
-function createCard(foodName, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList) {
+function createCard(foodName, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList, date) {
+  console.log(`createCard ${date}`)
+  const recipeDate = document.createElement("h3");
+  recipeDate.classList.add("recipe-card-date");
+  recipeDate.innerText = `${date}`;
+
   const card = document.createElement("div");
   card.classList.add("card");
 
   const title = document.createElement("h2");
   title.classList.add("title");
   title.innerText = foodName;
-  card.append(title);
+  card.append(title, recipeDate);
 
   const subtitleSection = document.createElement("section");
   subtitleSection.classList.add("subtitleSection");
@@ -116,7 +121,7 @@ function createCard(foodName, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList) {
 
     const ingredientName = document.createElement("div"); // ingredients list
     ingredientName.classList.add("ingredient_name");
-    ingredientName.innerText = i.name;
+    ingredientName.innerText = `${i.name} - ${i.weight}g`;
     individualIngredient.append(ingredientName);
     const macros = document.createElement("div");
     macros.classList.add("macros");
@@ -189,6 +194,7 @@ let ingredientList = [];
 //Create recipe form function - gets the elements from the html form and adds callbacks to the buttons, populates values etc.
 function createRecipeForm() {
   const recipeName = document.getElementById("recipe-form-title");
+  const recipeDate = document.getElementById("recipe-form-date");
   const addIngredientTextInput = document.getElementById(
     "recipe-ingredient-text-box"
   );
@@ -216,7 +222,8 @@ function createRecipeForm() {
         totalCarbsValue,
         totalFatValue,
         totalProteinValue,
-        ingredientList
+        ingredientList,
+        recipeDate.value
       );
 
       resetForm();
@@ -315,6 +322,7 @@ async function createIngredientDiv(ingredient, weight) {
         carbs: data[1].carbs,
         fat: data[1].fat,
         protein: data[1].protein,
+        weight: weight,
       });
   }
   });
@@ -345,5 +353,20 @@ function deleteIngredient(ingredientName, ingredientDiv, data) {
     }
   }
 }
+
+const cardAreaDate = document.getElementById("recipe-card-area-date");
+cardAreaDate.addEventListener("change", () => {
+  console.log(cardArea.children)
+  for(child of cardArea.children){
+    console.log(child);
+    if(child.classList.contains("card")){
+      if(child.querySelector(".recipe-card-date").innerText != cardAreaDate.value){
+        child.classList.add("hide");
+      }else{
+        child.classList.remove("hide");
+      }
+    }
+  }
+})
 
 createRecipeForm();

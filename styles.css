@@ -239,3 +239,7 @@ h2 {
     text-decoration: underline;
     margin: 0;
 }
+
+.hide{
+    display: none;
+}
