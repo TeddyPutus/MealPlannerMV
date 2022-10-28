@@ -45,6 +45,7 @@ p {
     font-size: 20px;
     border: 1px solid black;
     margin: 0 10px;
+    justify-self: center;
 }
 
 #recipe-form-title {
@@ -148,15 +149,38 @@ strong {
 
 #recipe-card-area {
     border: 1px solid black;
-    max-width: 600px;
+    max-width: 1800px;
     justify-self: center;
     padding: 10px;
     font-size: 20px;
     margin: 0 10px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    row-gap: 10px;
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 60px;
+}
+
+@media (min-width: 550px) and (max-width: 1000px) {
+    #recipe-card-area {
+        grid-template-columns: auto auto;
+        row-gap: 50px;
+        column-gap: 50px;
+    }
+}
+
+@media (min-width: 1001px) and (max-width: 1550px) {
+    #recipe-card-area {
+        grid-template-columns: auto auto auto;
+        row-gap: 35px;
+        column-gap: 35px;
+    }
+}
+
+@media (min-width: 1551px) and (max-width: 2100px) {
+    #recipe-card-area {
+        grid-template-columns: auto auto auto auto;
+        row-gap: 20px;
+        column-gap: 20px;
+    }
 }
 
 .card {
