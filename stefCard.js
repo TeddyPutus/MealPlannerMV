@@ -1,8 +1,9 @@
-function createCard(ingrList, totalCals, ttlCarbs, ttlProt, ttlFat) {
+function createCard(title, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList) {
   const card = document.createElement("div");
   card.classList.add("card");
 
   const title = document.createElement("h2");
+  title.innerText = title;
   title.append(card);
   // Inputs Section
   //   const inputs = document.createElement("div");

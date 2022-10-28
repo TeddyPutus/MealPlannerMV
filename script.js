@@ -15,6 +15,8 @@ async function fetchIngredient(food) {
     for(let ingredient of data.results){
         if(ingredient.name === food) return ingredient.id
     }
+
+    //out of the for loop - we haven't found anything!
 }
 
 async function fetchIngredientData(id, amount){
