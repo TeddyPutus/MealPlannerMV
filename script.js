@@ -292,21 +292,16 @@ function deleteIngredient(ingredientName, ingredientDiv, data) {
   //remove the div from the form
   document.getElementById("added-ingredients").removeChild(ingredientDiv);
 
-  // //update the total values
-  // let caloriesToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
-  // let carbsToAdd = parseFloat(data[1].carbs.slice(0, -1)); //remove the char at the end!
-  // let fatToAdd = parseFloat(data[1].fat.slice(0, -1)); //remove the char at the end!
-  // let proteinToAdd = parseFloat(data[1].protein.slice(0, -1)); //remove the char at the end!
 
-  totalCaloriesValue -= data[1].calories;
-  totalCarbsValue -= data[1].carbs;
-  totalFatValue -= data[1].fat;
-  totalProteinValue -= data[1].protein;
+  totalCaloriesValue = data[1].calories > 0 ? totalCaloriesValue - data[1].calories : 0;
+  totalCarbsValue = data[1].carbs > 0 ? totalCarbsValue - data[1].carbs : 0;
+  totalFatValue = data[1].fat > 0 ? totalFatValue - data[1].fat : 0;
+  totalProteinValue = data[1].protein > 0 ? totalProteinValue - data[1].protein : 0;
 
-  totalCalories.innerText = `${totalCaloriesValue}`;
-  totalCarbs.innerText = `${totalCarbsValue}g`;
-  totalFat.innerText = `${totalFatValue}g`;
-  totalProtein.innerText = `${totalProteinValue}g`;
+  totalCalories.innerText = `${totalCaloriesValue.toFixed(2)}`;
+  totalCarbs.innerText = `${totalCarbsValue.toFixed(2)}g`;
+  totalFat.innerText = `${totalFatValue.toFixed(2)}g`;
+  totalProtein.innerText = `${totalProteinValue.toFixed(2)}g`;
 
   //find and remove ingredient entry from ingredient list
   for (ingredient of ingredientList) {
