@@ -193,6 +193,18 @@ strong {
 .card {
     border: 1px solid black;
     margin: 0 25px;
+    padding: 10px;
+}
+
+.subtitle {
+    display: grid;
+    grid-template-columns: auto 61px 61px 61px 61px;
+}
+
+.subtitle div {
+    text-align: center;
+    font-size: 1rem;
+    text-decoration: underline;
 }
 
 .ingredient_and_macros {
@@ -213,10 +225,9 @@ strong {
 
 .total_macros {
     font-size: 16px;
-    text-decoration: underline;
     display: grid;
-    width: 250px;
-    grid-template-columns: 25% 25% 25% 25%;
+    width: 100%;
+    grid-template-columns: auto 61px 61px 61px 61px;
     text-align: center;
     margin-left: auto;
 }
