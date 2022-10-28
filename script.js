@@ -287,19 +287,21 @@ async function createIngredientDiv(ingredient, weight) {
 }
 
 function deleteIngredient(ingredientName, ingredientDiv, data) {
+
+  console.log(data)
   //remove the div from the form
   document.getElementById("added-ingredients").removeChild(ingredientDiv);
 
-  //update the total values
-  let caloriesToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
-  let carbsToAdd = parseFloat(data[1].carbs.slice(0, -1)); //remove the char at the end!
-  let fatToAdd = parseFloat(data[1].fat.slice(0, -1)); //remove the char at the end!
-  let proteinToAdd = parseFloat(data[1].protein.slice(0, -1)); //remove the char at the end!
+  // //update the total values
+  // let caloriesToAdd = parseFloat(data[1].calories.slice(0, -1)); //remove the char at the end!
+  // let carbsToAdd = parseFloat(data[1].carbs.slice(0, -1)); //remove the char at the end!
+  // let fatToAdd = parseFloat(data[1].fat.slice(0, -1)); //remove the char at the end!
+  // let proteinToAdd = parseFloat(data[1].protein.slice(0, -1)); //remove the char at the end!
 
-  totalCaloriesValue -= caloriesToAdd;
-  totalCarbsValue -= carbsToAdd;
-  totalFatValue -= fatToAdd;
-  totalProteinValue -= proteinToAdd;
+  totalCaloriesValue -= data[1].calories;
+  totalCarbsValue -= data[1].carbs;
+  totalFatValue -= data[1].fat;
+  totalProteinValue -= data[1].protein;
 
   totalCalories.innerText = `${totalCaloriesValue}`;
   totalCarbs.innerText = `${totalCarbsValue}g`;
