@@ -33,17 +33,32 @@ function createCard(foodName, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList) {
   title.classList.add("title");
   title.innerText = foodName;
   card.append(title);
-  // Inputs Section
-  //   const inputs = document.createElement("div");
-  //   inputs.append(card);
-  //   const ingredientName = document.createElement("input");
-  //   ingredientName.append(inputs);
-  //   const amount = document.createElement("input");
-  //   amount.append(inputs);
-  //   const unit = document.createElement("input");
-  //   unit.append(inputs);
-  //   const addIngredientBtn = document.createElement("button");
-  //   addIngredientBtn.append(inputs);
+
+  const subtitleSection = document.createElement("section");
+  subtitleSection.classList.add("subtitleSection");
+  card.append(subtitleSection);
+  const subtitle = document.createElement("div");
+  subtitle.classList.add("subtitle");
+  subtitleSection.append(subtitle);
+  const ing = document.createElement("div");
+  ing.classList.add("ing");
+  ing.innerText = "Ingredient";
+  const cals = document.createElement("div");
+  cals.classList.add("cals");
+  cals.innerText = "Calories";
+  const crbs = document.createElement("div");
+  crbs.classList.add("crbs");
+  crbs.innerText = "Carbohydrates";
+  const ft = document.createElement("div");
+  ft.classList.add("ft");
+  ft.innerText = "Fat";
+  const prt = document.createElement("div");
+  prt.classList.add("prt");
+  prt.innerText = "Protein";
+  subtitle.append(cals);
+  subtitle.append(crbs);
+  subtitle.append(ft);
+  subtitle.append(prt);
 
   //main
   const ingredients = document.createElement("div");
@@ -88,22 +103,27 @@ function createCard(foodName, totalCals, ttlCarbs, ttlFat, ttlProt, ingrList) {
   const footer = document.createElement("div"); // iner values as float
   footer.classList.add("total_macros");
   card.append(footer);
+  const total = document.createElement("strong");
+  total.classList.add("total");
+  total.innerText - "Total:";
+  footer.append(total);
   const totalCalories = document.createElement("div");
   totalCalories.classList.add("total_calories");
-  totalCalories.innerText = totalCals;
+  totalCalories.innerText = `${totalCals}Kcal`;
   footer.append(totalCalories);
   const totalCarbs = document.createElement("div");
   totalCarbs.classList.add("total_carbs");
-  totalCarbs.innerText = ttlCarbs;
+  totalCarbs.innerText = `${ttlCarbs.toFixed(2)}g`;
   footer.append(totalCarbs);
-  const totalProtein = document.createElement("div");
-  totalProtein.classList.add("total_protein");
-  totalProtein.innerText = ttlProt;
-  footer.append(totalProtein);
   const totalFat = document.createElement("div");
   totalFat.classList.add("total_fat");
-  totalFat.innerText = ttlFat;
+  totalFat.innerText = `${ttlFat}g`;
   footer.append(totalFat);
+  const totalProtein = document.createElement("div");
+  totalProtein.classList.add("total_protein");
+  totalProtein.innerText = `${ttlProt.toFixed(2)}g`;
+  footer.append(totalProtein);
+
   //   const createRecipe = document.createElement("button");
   //   createRecipe.append(footer);
 
